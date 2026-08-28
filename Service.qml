@@ -46,12 +46,19 @@ Item {
     root.startNextStateWrite()
   }
 
+  function notifyToggle(value) {
+    var mode = value ? "One app per workspace" : "Multiple apps per workspace"
+    Util.execDetached("omarchy-notification-send -t 2000 "
+      + Util.shellQuote("Workspace behavior") + " " + Util.shellQuote(mode))
+  }
+
   function setEnabled(value) {
     var next = value === true
     if (!root.stateReady || root.enabled === next) return
 
     root.enabled = next
     root.persistState(next)
+    root.notifyToggle(next)
   }
 
   function toggle() {

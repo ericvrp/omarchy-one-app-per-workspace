@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "ericvrp.one-app-per-workspace",
   "name": "One App Per Workspace",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Eric van Riet Paap",
   "description": "Keeps tiled applications on separate Hyprland workspaces",
   "license": "MIT",
@@ -15,7 +15,7 @@
     "displayName": "One App Per Workspace",
     "description": "Toggle one tiled application per workspace",
     "category": "Compositor",
-    "defaultSection": "left",
+    "defaultSection": "right",
     "allowMultiple": false
   }
 }

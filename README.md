@@ -51,7 +51,7 @@ useful alongside this plugin.
 omarchy plugin add https://github.com/ericvrp/omarchy-one-app-per-workspace.git --enable
 ```
 
-The plugin manager places the icon in the left bar section by default. Move it
+The plugin manager places the icon in the right bar section by default. Move it
 to another section with:
 
 ```bash

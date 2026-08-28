@@ -13,8 +13,7 @@ BarWidget {
   readonly property var service: root.services[root.moduleName] || null
   readonly property bool featureEnabled: root.service ? root.service.enabled : true
   readonly property bool serviceReady: root.service ? root.service.stateReady : false
-  readonly property color iconColor: button.active && button.useActiveColor
-    ? button.activeColor : button.foreground
+  readonly property color iconColor: button.foreground
 
   implicitWidth: button.implicitWidth
   implicitHeight: button.implicitHeight
@@ -26,14 +25,13 @@ BarWidget {
     bar: root.bar
     text: ""
     active: root.featureEnabled
-    activeColor: root.bar ? root.bar.urgent : Color.urgent
-    useActiveColor: true
+    useActiveColor: false
     interactive: root.service !== null && root.serviceReady
     pressable: root.service !== null && root.serviceReady
     tooltipText: root.serviceReady
       ? (root.featureEnabled
-        ? "One app per workspace (enabled)"
-        : "Tiling mode (disabled)")
+        ? "Allow multiple apps per workspace"
+        : "Keep one app per workspace")
       : "One app per workspace (loading)"
 
     iconComponent: Component {
@@ -52,6 +50,7 @@ BarWidget {
         Row {
           visible: !root.featureEnabled
           anchors.centerIn: parent
+          anchors.verticalCenterOffset: -Style.spaceReal(1)
           width: parent.width * 0.76
           height: parent.height * 0.68
           spacing: Style.spaceReal(1)
