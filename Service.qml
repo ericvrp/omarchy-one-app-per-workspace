@@ -9,6 +9,7 @@ Item {
   id: root
 
   readonly property string home: Quickshell.env("HOME")
+  readonly property string omarchyPath: Quickshell.env("OMARCHY_PATH") || "/usr/share/omarchy"
   readonly property string toggleDir: home + "/.local/state/omarchy/toggles"
   readonly property string disabledFile: toggleDir + "/one-app-per-workspace-off"
   readonly property int eventRetryLimit: 10
@@ -48,8 +49,8 @@ Item {
 
   function notifyToggle(value) {
     var mode = value ? "One app per workspace" : "Multiple apps per workspace"
-    Util.execDetached("omarchy-notification-send -t 2000 "
-      + Util.shellQuote("Workspace behavior") + " " + Util.shellQuote(mode))
+    Quickshell.execDetached([root.omarchyPath + "/bin/omarchy-notification-send",
+      "-t", "2000", "Workspace behavior", mode])
   }
 
   function setEnabled(value) {
