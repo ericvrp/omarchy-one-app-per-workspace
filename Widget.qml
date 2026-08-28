@@ -9,8 +9,14 @@ BarWidget {
 
   // Bar widgets are created once per monitor. Read the service map owned by
   // shell.qml so every icon instance controls the same service object.
-  readonly property var services: root.bar && root.bar.shell ? root.bar.shell._services : ({})
-  readonly property var service: root.services[root.moduleName] || null
+  readonly property var service: {
+    var shell = root.bar && root.bar.shell ? root.bar.shell : null
+    if (!shell) return null
+    var services = shell._services
+    return typeof shell.serviceFor === "function"
+      ? shell.serviceFor(root.moduleName)
+      : services[root.moduleName] || null
+  }
   readonly property bool featureEnabled: root.service ? root.service.enabled : true
   readonly property bool serviceReady: root.service ? root.service.stateReady : false
   readonly property color iconColor: button.foreground
@@ -26,8 +32,8 @@ BarWidget {
     text: ""
     active: root.featureEnabled
     useActiveColor: false
-    interactive: root.service !== null && root.serviceReady
-    pressable: root.service !== null && root.serviceReady
+    interactive: root.service !== null
+    pressable: root.service !== null
     tooltipText: root.serviceReady
       ? (root.featureEnabled
         ? "Allow multiple apps per workspace"

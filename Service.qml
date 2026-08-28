@@ -9,7 +9,7 @@ Item {
   id: root
 
   readonly property string home: Quickshell.env("HOME")
-  readonly property string omarchyPath: Quickshell.env("OMARCHY_PATH") || "/usr/share/omarchy"
+  property string omarchyPath: Quickshell.env("OMARCHY_PATH") || "/usr/share/omarchy"
   readonly property string toggleDir: home + "/.local/state/omarchy/toggles"
   readonly property string disabledFile: toggleDir + "/one-app-per-workspace-off"
   readonly property int eventRetryLimit: 10
