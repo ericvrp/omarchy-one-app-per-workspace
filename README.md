@@ -22,14 +22,18 @@ selected tiling layout.
 - Starts enabled by default.
 - Moves a newly opened tiled window to Hyprland's first empty workspace when
   the focused workspace already contains another window, and follows it there.
-- When the focused normal workspace becomes empty after a window closes, focuses
-  the nearest occupied workspace before it, then the nearest one after it.
+- When the focused normal workspace's last window closes, focuses the nearest
+  occupied workspace before it, then the nearest one after it.
 - Falls back to workspace 1 when no occupied workspace is available.
 - Does not inspect, change, or depend on the selected Hyprland tiling layout.
 - Does not move floating windows when they open.
 - On Omarchy's Lua configuration mode, redirects a second tiled window before
   the active layout places it, so Dwindle and Scrolling do not visibly split
   the current workspace first.
+- On Omarchy's Lua configuration mode, focuses the destination workspace during
+  the close event, before the compositor removes the last window from the old
+  layout, so the old workspace does not briefly reveal its wallpaper.
+- With the regular configuration provider, keeps the delayed close fallback.
 - Uses the existing `omarchy-shell` service and a small in-process Hyprland Lua
   hook without a helper daemon or a persistent Hyprland configuration change.
 

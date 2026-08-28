@@ -51,16 +51,19 @@ restarting the live shell.
 
 The service listens to Hyprland's `openwindow` and `closewindow` IPC events. It
 waits briefly for Quickshell's Hyprland object model to settle before acting on
-an event. This delayed open handler remains the fallback for the regular
+an event. These delayed handlers remain the fallback for the regular
 configuration provider.
 
 When Hyprland reports Lua configuration mode, the service also loads
 `OneAppPerWorkspaceEarlyHook.lua` through `hyprctl repl`. That hook handles
 `window.open_early`, before Hyprland inserts the new window into Dwindle,
 Scrolling, or another layout. It moves a second tiled window directly to the
-first empty workspace, avoiding the intermediate layout shift. The service
-resynchronizes the hook after a Hyprland config reload and removes it when the
-plugin service is destroyed.
+first empty workspace, avoiding the intermediate layout shift. It also handles
+`window.close` while the closing window is still in its old layout, focusing the
+nearest occupied workspace before Hyprland removes that layout target. This
+avoids briefly rendering the old empty workspace. The service resynchronizes
+the hook after a Hyprland config reload and removes it when the plugin service
+is destroyed.
 
 The off state is represented by:
 
