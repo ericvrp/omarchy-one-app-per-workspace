@@ -51,6 +51,14 @@ BarWidget {
           border.width: 1
           border.color: root.iconColor
           radius: Style.spaceReal(0.5)
+
+          Text {
+            anchors.centerIn: parent
+            text: "1"
+            color: root.iconColor
+            font.pixelSize: Math.max(1, Math.round(parent.height * 0.68))
+            font.bold: true
+          }
         }
 
         Row {
