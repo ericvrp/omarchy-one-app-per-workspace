@@ -39,7 +39,7 @@ hotkey shows a short notification.
 
 ## Screenshots
 
-![Disabled state with its action tooltip](screenshots/disabled.png)
+![Disabled state with two tiled apps](screenshots/disabled.png)
 
 ![Toggle notification](screenshots/toggle-notification.png)
 
