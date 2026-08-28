@@ -3,6 +3,8 @@
 An Omarchy Quickshell plugin that keeps one tiled application on each Hyprland
 workspace.
 
+![One app per workspace enabled in the Omarchy bar](preview.png)
+
 ## Why Use It
 
 This is especially useful on small screens, where several tiled applications on
@@ -32,7 +34,14 @@ The bar icon is a square while the feature is enabled and two outlined tiles
 while it is disabled. Click the icon to toggle the behavior. The setting is
 stored in `~/.local/state/omarchy/toggles/one-app-per-workspace-off`, so it is
 preserved across shell restarts and reboots. The icon follows the active bar
-theme and provides a state-specific tooltip.
+theme and provides an action-specific tooltip. Toggling from the icon or
+hotkey shows a short notification.
+
+## Screenshots
+
+![Disabled state with its action tooltip](screenshots/disabled.png)
+
+![Toggle notification](screenshots/toggle-notification.png)
 
 ## Requirements
 
