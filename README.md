@@ -39,9 +39,9 @@ hotkey shows a short notification.
 
 ## Screenshots
 
-![Disabled state with two tiled apps](screenshots/disabled.png)
+![Enabled state with one tiled app](screenshots/enabled.png)
 
-![Toggle notification](screenshots/toggle-notification.png)
+![Disabled state with two tiled apps](screenshots/disabled.png)
 
 ## Requirements
 
