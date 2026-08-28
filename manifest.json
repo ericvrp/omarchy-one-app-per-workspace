@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "ericvrp.one-app-per-workspace",
+  "name": "One App Per Workspace",
+  "version": "1.0.0",
+  "author": "Eric van Riet Paap",
+  "description": "Keeps tiled applications on separate Hyprland workspaces",
+  "license": "MIT",
+  "kinds": ["service", "bar-widget"],
+  "entryPoints": {
+    "service": "Service.qml",
+    "barWidget": "Widget.qml"
+  },
+  "barWidget": {
+    "displayName": "One App Per Workspace",
+    "description": "Toggle one tiled application per workspace",
+    "category": "Compositor",
+    "defaultSection": "left",
+    "allowMultiple": false
+  }
+}
