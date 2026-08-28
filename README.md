@@ -7,10 +7,11 @@ workspace.
 
 ## Why Use It
 
-This is especially useful on small screens, where several tiled applications on
-one workspace can make the active window difficult to find. Keeping workspaces
-to one app gives workspace switching a predictable result, independent of the
-selected tiling layout.
+Notebook screens have limited space, and sharing one workspace among several
+tiled applications reduces the room available to the current app. Keeping each
+workspace dedicated to one tiled application lets the current app use more of
+the display without being split or cluttered by other apps. It also makes
+workspace switching predictable, independent of the selected tiling layout.
 
 > [!IMPORTANT]
 > This plugin is for **Omarchy 4 (Quattro)**, where the desktop shell and bar
