@@ -27,8 +27,11 @@ selected tiling layout.
 - Falls back to workspace 1 when no occupied workspace is available.
 - Does not inspect, change, or depend on the selected Hyprland tiling layout.
 - Does not move floating windows when they open.
-- Runs inside the existing `omarchy-shell` process without a helper daemon or a
-  change to Hyprland configuration.
+- On Omarchy's Lua configuration mode, redirects a second tiled window before
+  the active layout places it, so Dwindle and Scrolling do not visibly split
+  the current workspace first.
+- Uses the existing `omarchy-shell` service and a small in-process Hyprland Lua
+  hook without a helper daemon or a persistent Hyprland configuration change.
 
 The bar icon is a square while the feature is enabled and two outlined tiles
 while it is disabled. Click the icon to toggle the behavior. The setting is

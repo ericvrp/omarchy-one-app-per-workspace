@@ -12,6 +12,8 @@ Item {
   property string omarchyPath: Quickshell.env("OMARCHY_PATH") || "/usr/share/omarchy"
   readonly property string toggleDir: home + "/.local/state/omarchy/toggles"
   readonly property string disabledFile: toggleDir + "/one-app-per-workspace-off"
+  readonly property string earlyHookPath: String(Qt.resolvedUrl("OneAppPerWorkspaceEarlyHook.lua"))
+    .replace(/^file:\/\//, "")
   readonly property int eventRetryLimit: 10
 
   property bool enabled: true
@@ -84,6 +86,21 @@ Item {
     Util.execDetached("hyprctl repl " + Util.shellQuote(code))
   }
 
+  function syncEarlyHook() {
+    if (!Hyprland.usingLua || !root.stateReady) return
+
+    var value = root.enabled ? "true" : "false"
+    root.runLua("local hook = dofile(\"" + root.luaString(root.earlyHookPath)
+      + "\"); hook.sync(" + value + ")")
+  }
+
+  function removeEarlyHook() {
+    if (!Hyprland.usingLua) return
+
+    root.runLua("local hook = dofile(\"" + root.luaString(root.earlyHookPath)
+      + "\"); hook.remove()")
+  }
+
   function moveWindowToEmptyWorkspace(address) {
     var selector = WorkspaceModel.hyprlandAddress(address)
     if (!selector) return
@@ -112,6 +129,10 @@ Item {
     Qt.callLater(root.rememberWindowWorkspaces)
 
     var name = String(event.name || "")
+    if (name === "configreloaded") {
+      root.syncEarlyHook()
+      return
+    }
     if (name !== "openwindow" && name !== "closewindow") return
 
     var args = []
@@ -315,6 +336,7 @@ Item {
   }
 
   onEnabledChanged: {
+    root.syncEarlyHook()
     if (!root.enabled) {
       openWindowTimer.stop()
       closeCheckTimer.stop()
@@ -339,6 +361,7 @@ Item {
       if (exitCode !== 0)
         console.warn("one-app-per-workspace: state probe failed")
       root.stateReady = true
+      root.syncEarlyHook()
       root.flushPendingEvents()
       root.flushPendingToggles()
     }
@@ -399,4 +422,6 @@ Item {
     Hyprland.refreshToplevels()
     Qt.callLater(root.rememberWindowWorkspaces)
   }
+
+  Component.onDestruction: root.removeEarlyHook()
 }

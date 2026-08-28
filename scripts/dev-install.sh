@@ -27,6 +27,7 @@ if [[ $repo_dir != "$plugin_dir" ]]; then
   install -m 0644 "$repo_dir/Service.qml" "$plugin_dir/Service.qml"
   install -m 0644 "$repo_dir/Widget.qml" "$plugin_dir/Widget.qml"
   install -m 0644 "$repo_dir/OneAppPerWorkspaceModel.js" "$plugin_dir/OneAppPerWorkspaceModel.js"
+  install -m 0644 "$repo_dir/OneAppPerWorkspaceEarlyHook.lua" "$plugin_dir/OneAppPerWorkspaceEarlyHook.lua"
 fi
 
 if [[ ! -f $shell_config ]]; then

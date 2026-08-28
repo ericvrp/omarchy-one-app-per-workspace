@@ -7,6 +7,8 @@ imports.searchPath.unshift(root)
 const model = imports.OneAppPerWorkspaceModel
 const qmlResult = GLib.file_get_contents(root + '/Service.qml')
 const serviceQml = ByteArray.toString(qmlResult[1])
+const hookResult = GLib.file_get_contents(root + '/OneAppPerWorkspaceEarlyHook.lua')
+const earlyHook = ByteArray.toString(hookResult[1])
 
 function assert(condition, description) {
   if (!condition) throw new Error('not ok - ' + description)
@@ -81,6 +83,10 @@ assert(!model.isNormalWorkspace(workspace(-1, [], false)), 'ignores negative wor
 assert(serviceQml.indexOf('tiledLayout') === -1, 'does not inspect the selected tiling layout')
 assert(serviceQml.indexOf('movetoworkspace emptynm,address:') !== -1, 'uses the empty workspace dispatcher')
 assert(serviceQml.indexOf('hyprctl repl') !== -1, 'supports Hyprland Lua configuration mode')
+assert(serviceQml.indexOf('OneAppPerWorkspaceEarlyHook.lua') !== -1, 'loads the pre-layout hook')
+assert(serviceQml.indexOf('configreloaded') !== -1, 'resyncs the hook after config reloads')
+assert(earlyHook.indexOf('window.open_early') !== -1, 'registers the pre-layout window event')
+assert(earlyHook.indexOf('workspace = "emptynm"') !== -1, 'moves early windows to an empty workspace')
 assert(serviceQml.indexOf('one-app-per-workspace-off') !== -1, 'persists the disabled state')
 assert(serviceQml.indexOf('target: "one-app-per-workspace"') !== -1, 'exposes a toggle IPC target')
 assert(serviceQml.indexOf('pendingToggleRequests') !== -1, 'queues toggles during startup')

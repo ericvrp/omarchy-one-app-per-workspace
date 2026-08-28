@@ -8,6 +8,7 @@ Omarchy 4 Quickshell shell. It is not a standalone Quickshell application.
 - Omarchy 4 with the Quickshell bar
 - Hyprland
 - GJS for the model tests
+- Lua for the pre-layout hook tests
 
 ## Validate
 
@@ -50,10 +51,16 @@ restarting the live shell.
 
 The service listens to Hyprland's `openwindow` and `closewindow` IPC events. It
 waits briefly for Quickshell's Hyprland object model to settle before acting on
-an event. The service dispatches standard Hyprland workspace commands when the
-compositor uses its regular configuration provider. When Hyprland reports Lua
-configuration mode, it uses `hyprctl repl` with the same `hl.dsp` helpers as the
-existing Omarchy bindings; it does not depend on Lua layout helpers.
+an event. This delayed open handler remains the fallback for the regular
+configuration provider.
+
+When Hyprland reports Lua configuration mode, the service also loads
+`OneAppPerWorkspaceEarlyHook.lua` through `hyprctl repl`. That hook handles
+`window.open_early`, before Hyprland inserts the new window into Dwindle,
+Scrolling, or another layout. It moves a second tiled window directly to the
+first empty workspace, avoiding the intermediate layout shift. The service
+resynchronizes the hook after a Hyprland config reload and removes it when the
+plugin service is destroyed.
 
 The off state is represented by:
 
